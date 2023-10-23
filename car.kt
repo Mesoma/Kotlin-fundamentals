@@ -10,10 +10,13 @@ fun main() {
 
 }
 fun drive(car:Car, rod:Decide){
-    if (car is Manual)
-        println(car.brand + car.colour)
-    else
-        println(car.brand + car.colour)
+    when{ (car is Manual)
+    -> println("Manual Car, ${car.colour + car.brand}")
+        (car is Automatic)
+        -> println("Automatic Car, ${car.colour + car.brand}")
+        else
+        -> println("Unrecognized Vehicle")
+    }
     if (car.passenger <= 4) {
         rod.side()
         car.move(car.speed)
