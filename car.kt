@@ -1,30 +1,25 @@
 fun main() {
     drive(
-        Manual("honda","white"),
-        Decide("Rumuola", Manual("Mercedes", "Black"))
+        Manual("Honda ","White ", speed = 50),
+        Decide("Rumuola", Manual("Mercedes", "Black", speed = 35))
     )
     drive(
-        Automatic(colour ="Brown", passenger = 10),
-        Decide("Rumuokwuta", Automatic("Audi", "White"))
+        Automatic(colour ="Brown ", passenger = 10, speed = 70),
+        Decide("Rumuokwuta", Automatic("Audi", "White", speed = 65))
     )
 
 }
 fun drive(car:Car, rod:Decide){
-    if (car is Manual) {
-        println(car.brand)
-        println(car.colour)
-        if (car.passenger <= 4)
-            car.move()
-        else
-            println("Too many People")
-    } else {
-        println(car.brand)
-        if (car.passenger <= 4)
-            car.move()
-        else
-            println("Too many People")
+    if (car is Manual)
+        println(car.brand + car.colour)
+    else
+        println(car.brand + car.colour)
+    if (car.passenger <= 4) {
+        rod.side()
+        car.move(car.speed)
     }
-    rod.side()
+    else
+        println("Too many People")
 }
 
 
@@ -32,7 +27,8 @@ interface Car {
     val brand:String
     val colour:String
     val passenger:Int
-    fun move()
+    val speed:Int
+    fun move(speed: Int)
 }
 
 interface Road {
@@ -61,19 +57,27 @@ class Decide(
 class Manual(
     override val brand:String,
     override val colour:String,
-    override val passenger:Int = 4
+    override val passenger:Int = 4,
+    override val speed: Int
 ):Car{
-    override fun move(){
-        println("Match your clutch, then accelerate")
+    override fun move(speed: Int){
+        if (speed> 60)
+            println("Speed above limit")
+        else
+            println("Drive Safely")
     }
 }
 
 class Automatic(
-    override val brand:String = "Audi",
+    override val brand:String = "Audi ",
     override val colour:String,
-    override val passenger:Int = 4
+    override val passenger:Int = 4,
+    override val speed: Int
 ):Car{
-    override fun move(){
-        println("Match your accelerate")
+    override fun move(speed: Int) {
+        if (speed > 50)
+            println("Speed above limit")
+        else
+            println("Drive Safely")
     }
 }
